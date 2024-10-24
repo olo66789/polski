@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/8832/8832880.png" type="image/x-icon">
+    <title>Spis Lektur | Tabela</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .table-container {
+			padding-bottom: 10px;
+            display: grid;
+            grid-template-columns: 20% 15% 15% 20% 30%;
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+			width: 1200px;
+        }
+
+        .cell {
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cell p {
+            margin: 3px 0;
+        }
+
+        .header-cell {
+            font-weight: bold;
+            color: #f39c12;
+            text-align: center;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 10px;
+            background-color: transparent;
+        }
+
+        .epoka-starozytnosc {
+            background-color: #1e1e1e;
+        }
+
+        .epoka-sredniowiecze {
+            background-color: #2b2b2b;
+        }
+
+        .epoka-renesans {
+            background-color: #1e1e1e;
+        }
+
+        .epoka-barok {
+            background-color: #2b2b2b;
+        }
+
+        .epoka-romantyzm {
+            background-color: #1e1e1e;
+        }
+
+        .epoka-pozytywizm {
+            background-color: #2b2b2b;
+        }
+
+        .epoka-mloda-polska {
+            background-color: #1e1e1e;
+        }
+
+        .epoka-xxlecie {
+            background-color: #2b2b2b;
+        }
+
+        .epoka-wojna {
+            background-color: #1e1e1e;
+        }
+	</style>
+</head>
+<body>
+
+<div class="table-container">
+    <div class="header-cell">TYTUŁ</div>
+    <div class="header-cell">AUTOR</div>
+    <div class="header-cell">EPOKA</div>
+    <div class="header-cell">GATUNEK</div>
+    <div class="header-cell">BOHATEROWIE</div>
+</div>
+
+<div id="content" class="table-container"></div>
+
+<script>
+const books = [
+    {
+        tytul: "Biblia",
+        autor: "Mateusz, Jan",
+        epoka: "Starożytność",
+        gatunek: "Utwór synkretyczny",
+        bohaterowie: "Adam, Ewa, Hiob"
+    },
+    {
+        tytul: "Mitologia",
+        autor: "Jan Parandowski",
+        epoka: "Starożytność",
+        gatunek: "Esej",
+        bohaterowie: "Ares, Hera, Atena, Apollo, Hermes"
+    },
+    {
+        tytul: "Iliada",
+        autor: "Homer",
+        epoka: "Starożytność",
+        gatunek: "Epos",
+        bohaterowie: "Achilles, Parys, Agamemnon, Zeus"
+    },
+    {
+        tytul: "Antygona",
+        autor: "Sofokles",
+        epoka: "Starożytność",
+        gatunek: "Tragedia antyczna",
+        bohaterowie: "Antygona, Kreon, Hajmon, Ismena, Tyrezjasz"
+    },
+    {
+        tytul: "Lament Świętokrzyski",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Lament",
+        bohaterowie: "Matka Boska"
+    },
+    {
+        tytul: "Legenda o Św. Aleksym",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Legenda hagiograficzna",
+        bohaterowie: "Aleksy, Famijana, Eufamijan, Aglijas"
+    },
+    {
+        tytul: "Rozmowa mistrza Polikarpa ze śmiercią",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Wierszowany dialog",
+        bohaterowie: "Polikarp, Śmierć"
+    },
+    {
+        tytul: "Kwiatki św. Franciszka z Asyżu",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Legenda hagiograficzna",
+        bohaterowie: "Franciszek, współbracia, Święci"
+    },
+    {
+        tytul: "Pieśń o Rolandzie",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Epos rycerski",
+        bohaterowie: "Roland, Karol Wielki, Oliwier, Ganelon, Marsyl"
+    },
+    {
+        tytul: "Kronika Polska",
+        autor: "Gall Anonim",
+        epoka: "Średniowiecze",
+        gatunek: "Średniowieczna kronika",
+        bohaterowie: "Dynastia Piastów (Bolesław Chrobry, Bolesław Śmiały, Bolesław Krzywousty)"
+    },
+    {
+        tytul: "Boska Komedia",
+        autor: "Dante Alighieri",
+        epoka: "Średniowiecze",
+        gatunek: "Poemat epicki",
+        bohaterowie: "Wergiliusz, Beatrycze"
+    },
+    {
+        tytul: "Odprawa posłów greckich",
+        autor: "Jan Kochanowski",
+        epoka: "Renesans",
+        gatunek: "Dramat humanistyczny",
+        bohaterowie: "Antenor, Aleksander"
+    },
+    {
+        tytul: "Kazania sejmowe",
+        autor: "Piotr Skarga",
+        epoka: "Renesans",
+        gatunek: "Kazanie",
+        bohaterowie: "Mojżesz, Samson, Joab, Nehemiasz, Zorobabel, synowie Matatiasza, Judyta, Estera"
+    },
+    {
+        tytul: "Pamiętniki",
+        autor: "Jan Chryzostom Pasek",
+        epoka: "Barok",
+        gatunek: "Pamiętnik",
+        bohaterowie: "Autor pamiętników"
+    },
+    {
+        tytul: "Makbet",
+        autor: "William Szekspir",
+        epoka: "Barok",
+        gatunek: "Dramat szekspirowski",
+        bohaterowie: "Makbet, Lady Makbet, Makduf, Lady Makduf, Dunkan, Malkolm, Donalbein, Banko, Fleance"
+    },
+    {
+        tytul: "Skąpiec",
+        autor: "Molier",
+        epoka: "Barok",
+        gatunek: "Komedia obyczajowa",
+        bohaterowie: "Harpagon, Kleant, Eliza, Anzelm, Walery, Marianna, Strzałka"
+    },
+    {
+        tytul: "Konrad Wallenrod",
+        autor: "Adam Mickiewicz",
+        epoka: "Romantyzm",
+        gatunek: "Powieść poetycka",
+        bohaterowie: "Konrad Wallenrod, Aldona, Halban, Winrich von Kniprode, Książę Witold"
+    },
+    {
+        tytul: "Dziady cz. III",
+        autor: "Adam Mickiewicz",
+        epoka: "Romantyzm",
+        gatunek: "Dramat romantyczny",
+        bohaterowie: "Konrad, Ksiądz Piotr, Żegota, Ewa, Guślarz, Duch Doktora, Bajkow, Senator, Patrioci"
+    },
+    {
+        tytul: "Kordian",
+        autor: "Juliusz Słowacki",
+        epoka: "Romantyzm",
+        gatunek: "Dramat romantyczny",
+        bohaterowie: "Kordian, Laura, Wioletta, Prezes, Papież"
+    },
+    {
+        tytul: "Lalka",
+        autor: "Bolesław Prus",
+        epoka: "Pozytywizm",
+        gatunek: "Powieść",
+        bohaterowie: "Stanisław Wokulski, Ignacy Rzecki, Izabela Łęcka, Helena Stawska, Minclowie, Henryk Szlangbaum"
+    },
+    {
+        tytul: "Gloria Victis",
+        autor: "Eliza Orzeszkowa",
+        epoka: "Pozytywizm",
+        gatunek: "Nowela",
+        bohaterowie: "Maryś Tarłowski, Aniela Tarłowska, Jagmin, Romuald Traugutt"
+    },
+    {
+        tytul: "Potop",
+        autor: "Henryk Sienkiewicz",
+        epoka: "Pozytywizm",
+        gatunek: "Powieść historyczna",
+        bohaterowie: "Andrzej Kmicic, Oleńka Billewiczówna, Soroka, Michał Wołodyjowski, Bogusław Radziwiłł, Andrzej Kuklinowski, Jan Zagłoba"
+    },
+    {
+        tytul: "Zbrodnia i Kara",
+        autor: "Fiodor Dostojewski",
+        epoka: "Pozytywizm",
+        gatunek: "Powieść",
+        bohaterowie: "Rodion Raskolnikow, Sonia Marmieładowa, Siemion Marmieładow, Porfiry Pietrowicz, Arkadiusz Swidrygajłow, Piotr Łużyn"
+    },
+    {
+        tytul: "Wesele",
+        autor: "Stanisław Wyspiański",
+        epoka: "Młoda Polska",
+        gatunek: "Dramat synkretyczny",
+        bohaterowie: "Pan Młody, Pani Młoda, Gospodarz, Gospodyni, Czepiec, Poeta, Jasiek, Dziennikarz, Radczyni, Dziad, Marysia"
+    },
+    {
+        tytul: "Przedwiośnie",
+        autor: "Stefan Żeromski",
+        epoka: "XX-lecie międzywojenne",
+        gatunek: "Powieść nowoczesna",
+        bohaterowie: "Cezary Baryka, Seweryn Baryka, Jadwiga Barykowa, Szymon Gajowiec, Hipolit Wielosławski"
+    },
+    {
+        tytul: "Proszę państwa do gazu",
+        autor: "Tadeusz Borowski",
+        epoka: "Literatura wojny i okupacji",
+        gatunek: "Opowiadanie",
+        bohaterowie: "Tadek, Henri, Andrej, Cosway"
+    },
+    {
+        tytul: "Zdążyć przed Panem Bogiem",
+        autor: "Hanna Krall",
+        epoka: "Literatura wojny i okupacji",
+        gatunek: "Reportaż",
+        bohaterowie: "Marek Edelman, Jan Moll, Mordechaj Anielewicz, Pola Lifszyc"
+    }
+];
+
+    const contentDiv = document.getElementById('content');
+
+    books.forEach(book => {
+        let epokaClass = '';
+        switch (book.epoka) {
+            case "Starożytność":
+                epokaClass = 'epoka-starozytnosc';
+                break;
+            case "Średniowiecze":
+                epokaClass = 'epoka-sredniowiecze';
+                break;
+            case "Renesans":
+                epokaClass = 'epoka-renesans';
+                break;
+            case "Barok":
+                epokaClass = 'epoka-barok';
+                break;
+            case "Romantyzm":
+                epokaClass = 'epoka-romantyzm';
+                break;
+            case "Pozytywizm":
+                epokaClass = 'epoka-pozytywizm';
+                break;
+            case "Młoda Polska":
+                epokaClass = 'epoka-mloda-polska';
+                break;
+            case "XX-lecie międzywojenne":
+                epokaClass = 'epoka-xxlecie';
+                break;
+            case "Literatura wojny i okupacji":
+                epokaClass = 'epoka-wojna';
+                break;
+            default:
+                epokaClass = '';
+        }
+
+        contentDiv.innerHTML += `
+            <div class="cell ${epokaClass}"><p>${book.tytul}</p></div>
+            <div class="cell ${epokaClass}"><p>${book.autor}</p></div>
+            <div class="cell ${epokaClass}"><p>${book.epoka}</p></div>
+            <div class="cell ${epokaClass}"><p>${book.gatunek}</p></div>
+            <div class="cell ${epokaClass}"><p>${book.bohaterowie}</p></div>
+        `;
+    });
+</script>
+
+</body>
+</html>

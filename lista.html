@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/8832/8832880.png" type="image/x-icon">
+    <title>Spis Lektur | Lista</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1F1F1F;
+            padding: 10px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        #search-container {
+            margin: 10px auto;
+            text-align: center;
+        }
+        #search-input {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            outline: none;
+        }
+        #content {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            color: #FFC107;
+            border-bottom: 2px solid #FFC107;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        a {
+            color: #FFC107;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            background-color: #FFC107;
+            color: #121212;
+        }
+        .epoka {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #1F1F1F;
+            color: #FFC107;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FFC107;
+            color: #121212;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+        .scroll-top img {
+            display: block;
+            margin: auto;
+            width: 20px;
+            height: 20px;
+        }
+        .scroll-top:hover {
+            background-color: #FFA000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="Szukaj..." onkeyup="searchContent()">
+        </div>
+    </header>
+    <div id="content">
+        <!-- Sekcje książek będą tutaj dodawane dynamicznie -->
+    </div>
+    <button class="scroll-top" onclick="scrollToTop()">
+        <img src="arrow.svg" alt="Do góry">
+    </button>
+    <script>
+const books = [
+    {
+        tytul: "Biblia",
+        autor: "Mateusz, Jan",
+        epoka: "Starożytność",
+        gatunek: "Utwór synkretyczny",
+        bohaterowie: "Adam, Ewa, Hiob"
+    },
+    {
+        tytul: "Mitologia",
+        autor: "Jan Parandowski",
+        epoka: "Starożytność",
+        gatunek: "Esej",
+        bohaterowie: "Ares, Hera, Atena, Apollo, Hermes"
+    },
+    {
+        tytul: "Iliada",
+        autor: "Homer",
+        epoka: "Starożytność",
+        gatunek: "Epos",
+        bohaterowie: "Achilles, Parys, Agamemnon, Zeus"
+    },
+    {
+        tytul: "Antygona",
+        autor: "Sofokles",
+        epoka: "Starożytność",
+        gatunek: "Tragedia antyczna",
+        bohaterowie: "Antygona, Kreon, Hajmon, Ismena, Tyrezjasz"
+    },
+    {
+        tytul: "Lament Świętokrzyski",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Lament",
+        bohaterowie: "Matka Boska"
+    },
+    {
+        tytul: "Legenda o Św. Aleksym",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Legenda hagiograficzna",
+        bohaterowie: "Aleksy, Famijana, Eufamijan, Aglijas"
+    },
+    {
+        tytul: "Rozmowa mistrza Polikarpa ze śmiercią",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Wierszowany dialog",
+        bohaterowie: "Polikarp, Śmierć"
+    },
+    {
+        tytul: "Kwiatki św. Franciszka z Asyżu",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Legenda hagiograficzna",
+        bohaterowie: "Franciszek, współbracia, Święci"
+    },
+    {
+        tytul: "Pieśń o Rolandzie",
+        autor: "-",
+        epoka: "Średniowiecze",
+        gatunek: "Epos rycerski",
+        bohaterowie: "Roland, Karol Wielki, Oliwier, Ganelon, Marsyl"
+    },
+    {
+        tytul: "Kronika Polska",
+        autor: "Gall Anonim",
+        epoka: "Średniowiecze",
+        gatunek: "Średniowieczna kronika",
+        bohaterowie: "Dynastia Piastów (Bolesław Chrobry, Bolesław Śmiały, Bolesław Krzywousty)"
+    },
+    {
+        tytul: "Boska Komedia",
+        autor: "Dante Alighieri",
+        epoka: "Średniowiecze",
+        gatunek: "Poemat epicki",
+        bohaterowie: "Wergiliusz, Beatrycze"
+    },
+    {
+        tytul: "Odprawa posłów greckich",
+        autor: "Jan Kochanowski",
+        epoka: "Renesans",
+        gatunek: "Dramat humanistyczny",
+        bohaterowie: "Antenor, Aleksander"
+    },
+    {
+        tytul: "Kazania sejmowe",
+        autor: "Piotr Skarga",
+        epoka: "Renesans",
+        gatunek: "Kazanie",
+        bohaterowie: "Mojżesz, Samson, Joab, Nehemiasz, Zorobabel, synowie Matatiasza, Judyta, Estera"
+    },
+    {
+        tytul: "Pamiętniki",
+        autor: "Jan Chryzostom Pasek",
+        epoka: "Barok",
+        gatunek: "Pamiętnik",
+        bohaterowie: "Autor pamiętników"
+    },
+    {
+        tytul: "Makbet",
+        autor: "William Szekspir",
+        epoka: "Barok",
+        gatunek: "Dramat szekspirowski",
+        bohaterowie: "Makbet, Lady Makbet, Makduf, Lady Makduf, Dunkan, Malkolm, Donalbein, Banko, Fleance"
+    },
+    {
+        tytul: "Skąpiec",
+        autor: "Molier",
+        epoka: "Barok",
+        gatunek: "Komedia obyczajowa",
+        bohaterowie: "Harpagon, Kleant, Eliza, Anzelm, Walery, Marianna, Strzałka"
+    },
+    {
+        tytul: "Konrad Wallenrod",
+        autor: "Adam Mickiewicz",
+        epoka: "Romantyzm",
+        gatunek: "Powieść poetycka",
+        bohaterowie: "Konrad Wallenrod, Aldona, Halban, Winrich von Kniprode, Książę Witold"
+    },
+    {
+        tytul: "Dziady cz. III",
+        autor: "Adam Mickiewicz",
+        epoka: "Romantyzm",
+        gatunek: "Dramat romantyczny",
+        bohaterowie: "Konrad, Ksiądz Piotr, Żegota, Ewa, Guślarz, Duch Doktora, Bajkow, Senator, Patrioci"
+    },
+    {
+        tytul: "Kordian",
+        autor: "Juliusz Słowacki",
+        epoka: "Romantyzm",
+        gatunek: "Dramat romantyczny",
+        bohaterowie: "Kordian, Laura, Wioletta, Prezes, Papież"
+    },
+    {
+        tytul: "Lalka",
+        autor: "Bolesław Prus",
+        epoka: "Pozytywizm",
+        gatunek: "Powieść",
+        bohaterowie: "Stanisław Wokulski, Ignacy Rzecki, Izabela Łęcka, Helena Stawska, Minclowie, Henryk Szlangbaum"
+    },
+    {
+        tytul: "Gloria Victis",
+        autor: "Eliza Orzeszkowa",
+        epoka: "Pozytywizm",
+        gatunek: "Nowela",
+        bohaterowie: "Maryś Tarłowski, Aniela Tarłowska, Jagmin, Romuald Traugutt"
+    },
+    {
+        tytul: "Potop",
+        autor: "Henryk Sienkiewicz",
+        epoka: "Pozytywizm",
+        gatunek: "Powieść historyczna",
+        bohaterowie: "Andrzej Kmicic, Oleńka Billewiczówna, Soroka, Michał Wołodyjowski, Bogusław Radziwiłł, Andrzej Kuklinowski, Jan Zagłoba"
+    },
+    {
+        tytul: "Zbrodnia i Kara",
+        autor: "Fiodor Dostojewski",
+        epoka: "Pozytywizm",
+        gatunek: "Powieść",
+        bohaterowie: "Rodion Raskolnikow, Sonia Marmieładowa, Siemion Marmieładow, Porfiry Pietrowicz, Arkadiusz Swidrygajłow, Piotr Łużyn"
+    },
+    {
+        tytul: "Wesele",
+        autor: "Stanisław Wyspiański",
+        epoka: "Młoda Polska",
+        gatunek: "Dramat synkretyczny",
+        bohaterowie: "Pan Młody, Pani Młoda, Gospodarz, Gospodyni, Czepiec, Poeta, Jasiek, Dziennikarz, Radczyni, Dziad, Marysia"
+    },
+    {
+        tytul: "Przedwiośnie",
+        autor: "Stefan Żeromski",
+        epoka: "XX-lecie międzywojenne",
+        gatunek: "Powieść nowoczesna",
+        bohaterowie: "Cezary Baryka, Seweryn Baryka, Jadwiga Barykowa, Szymon Gajowiec, Hipolit Wielosławski"
+    },
+    {
+        tytul: "Proszę państwa do gazu",
+        autor: "Tadeusz Borowski",
+        epoka: "Literatura wojny i okupacji",
+        gatunek: "Opowiadanie",
+        bohaterowie: "Tadek, Henri, Andrej, Cosway"
+    },
+    {
+        tytul: "Zdążyć przed Panem Bogiem",
+        autor: "Hanna Krall",
+        epoka: "Literatura wojny i okupacji",
+        gatunek: "Reportaż",
+        bohaterowie: "Marek Edelman, Jan Moll, Mordechaj Anielewicz, Pola Lifszyc"
+    }
+];
+
+        const contentDiv = document.getElementById('content');
+        let currentEpoch = '';
+
+        books.forEach(book => {
+            if (book.epoka !== currentEpoch) {
+                currentEpoch = book.epoka;
+                const epochDiv = document.createElement('div');
+                epochDiv.className = 'epoka';
+                epochDiv.textContent = currentEpoch;
+                contentDiv.appendChild(epochDiv);
+            }
+
+            const section = document.createElement('section');
+            section.id = book.tytul.replace(/\s+/g, '-').toLowerCase();
+            section.innerHTML = `
+                <h2>${book.tytul}</h2>
+                <p><strong>Tytuł:</strong> "${book.tytul}"</p>
+                <p><strong>Autor:</strong> "${book.autor}"</p>
+                <p><strong>Epoka:</strong> "${book.epoka}"</p>
+                <p><strong>Gatunek:</strong> "${book.gatunek}"</p>
+                <p><strong>Bohaterowie:</strong> "${book.bohaterowie}"</p>
+            `;
+            contentDiv.appendChild(section);
+        });
+
+        function searchContent() {
+            const input = document.getElementById('search-input').value.toLowerCase();
+            const sections = document.querySelectorAll('#content section');
+            let firstMatch = null;
+            const headerHeight = document.querySelector('header').offsetHeight + 20;
+
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                const h2 = section.querySelector('h2');
+                const paragraphs = section.querySelectorAll('p');
+                h2.classList.remove('highlight');
+                paragraphs.forEach(p => p.classList.remove('highlight'));
+
+                if (input === '') return;
+
+                if (text.includes(input)) {
+                    if (!firstMatch) firstMatch = section;
+                    h2.classList.add('highlight');
+                    paragraphs.forEach(p => {
+                        if (p.textContent.toLowerCase().includes(input)) {
+                            p.classList.add('highlight');
+                        }
+                    });
+                }
+            });
+
+            if (firstMatch) {
+                window.scrollTo({
+                    top: firstMatch.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
