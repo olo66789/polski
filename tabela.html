@@ -82,6 +82,10 @@
         .epoka-wojna {
             background-color: #1e1e1e;
         }
+		
+        .epoka-wspolczesnosc {
+            background-color: #2b2b2b;
+        }
 	</style>
 </head>
 <body>
@@ -225,6 +229,13 @@ const books = [
         bohaterowie: "Konrad, Ksiądz Piotr, Żegota, Ewa, Guślarz, Duch Doktora, Bajkow, Senator, Patrioci"
     },
     {
+        tytul: "Pan Tadeusz",
+        autor: "Adam Mickiewicz",
+        epoka: "Romantyzm",
+        gatunek: "Epopeja narodowa",
+        bohaterowie: "Tadeusz, Zosia, Gerwazy, Jacek"
+    },
+    {
         tytul: "Kordian",
         autor: "Juliusz Słowacki",
         epoka: "Romantyzm",
@@ -267,6 +278,13 @@ const books = [
         bohaterowie: "Pan Młody, Pani Młoda, Gospodarz, Gospodyni, Czepiec, Poeta, Jasiek, Dziennikarz, Radczyni, Dziad, Marysia"
     },
     {
+        tytul: "Chłopi",
+        autor: "Władysław Reymont",
+        epoka: "Młoda Polska",
+        gatunek: "Powieść",
+        bohaterowie: "Jagna, Maciej, Antoni"
+    },
+	{
         tytul: "Przedwiośnie",
         autor: "Stefan Żeromski",
         epoka: "XX-lecie międzywojenne",
@@ -286,6 +304,41 @@ const books = [
         epoka: "Literatura wojny i okupacji",
         gatunek: "Reportaż",
         bohaterowie: "Marek Edelman, Jan Moll, Mordechaj Anielewicz, Pola Lifszyc"
+    },
+	{
+        tytul: "Inny świat",
+        autor: "Gustaw Herling-Grudziński",
+        epoka: "Literatura wojny i okupacji",
+        gatunek: "Proza dokumentalna",
+        bohaterowie: "Narrator, więźniowie łagrów"
+    },
+	{
+        tytul: "1984",
+        autor: "George Orwell",
+        epoka: "Współczesność",
+        gatunek: "Powieść dystopijna",
+        bohaterowie: "Winston Smith, Julia, O’Brien, Wielki brat"
+    },
+	{
+        tytul: "Tango",
+        autor: "Sławomir Mrożek",
+        epoka: "Współczesność",
+        gatunek: "Dramat groteskowy",
+        bohaterowie: "Artur, Eleonora, Stomil, Eugeniusz, Eugenia, Ala, Edek"
+    },
+	{
+        tytul: "Dżuma",
+        autor: "Albert Camus",
+        epoka: "Współczesność",
+        gatunek: "Powieść filozoficzna",
+        bohaterowie: "Bernard Rieux, Jean Tarrou, Raymond Rambert o.Paneloux"
+    },
+	{
+        tytul: "Profesor Andrews w Warszawie",
+        autor: "Olga Tokarczuk",
+        epoka: "Współczesność",
+        gatunek: "Opowiadanie",
+        bohaterowie: "Andrews, Małgorzata (Gosha)"
     }
 ];
 
@@ -320,6 +373,9 @@ const books = [
                 break;
             case "Literatura wojny i okupacji":
                 epokaClass = 'epoka-wojna';
+                break;
+			case "Współczesność":
+                epokaClass = 'epoka-wspolczesnosc';
                 break;
             default:
                 epokaClass = '';
