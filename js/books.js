@@ -1,39 +1,3 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/8832/8832880.png" type="image/x-icon">
-    <title>Spis Lektur | Quiz</title>
-    <style>
-        body { background-color: #121212; color: #E0E0E0; font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
-        #content { padding: 20px; max-width: 800px; margin: auto; }
-        section { margin-bottom: 20px; border-bottom: 2px solid #FFC107; padding-bottom: 10px; }
-        section:last-child { border-bottom: none; }
-        .hidden-field { background-color: #333; color: #fff; border: none; padding: 5px; cursor: pointer; width: 100%; text-align: left; }
-        .popup { display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); width: 80%; height: 80%; background-color: #1F1F1F; color: #FFC107; padding: 20px; border-radius: 5px; z-index: 1000; overflow-y: auto; }
-        .popup .search-container { margin-bottom: 10px; }
-        .popup .search-input { padding: 10px; width: 100%; box-sizing: border-box; border: none; border-radius: 5px; background-color: #333; color: #fff; outline: none; }
-        .popup .options-container { display: flex; flex-wrap: wrap; gap: 10px; }
-        .popup .option { background-color: #333; padding: 10px; border-radius: 5px; cursor: pointer; }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 999; }
-        .congrats { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FFC107; color: #121212; padding: 20px; border-radius: 5px; z-index: 1000; }
-    </style>
-</head>
-<body>
-    <div id="content">
-    </div>
-    <div class="overlay" id="overlay"></div>
-    <div class="popup" id="popup">
-        <div class="search-container">
-            <input type="text" id="search-input" class="search-input" placeholder="Szukaj...">
-        </div>
-        <div id="options" class="options-container"></div>
-    </div>
-    <div class="congrats" id="congrats">
-        <p>Ale z ciebie sigma rizz! Wszystko uzupełnione!</p>
-    </div>
-    <script>
 const books = [
     {
         tytul: "Biblia",
@@ -46,7 +10,7 @@ const books = [
         tytul: "Mitologia",
         autor: "Jan Parandowski",
         epoka: "Starożytność",
-        gatunek: "Esej",
+        gatunek: "Mit",
         bohaterowie: "Ares, Hera, Atena, Apollo, Hermes"
     },
     {
@@ -103,7 +67,7 @@ const books = [
         autor: "Gall Anonim",
         epoka: "Średniowiecze",
         gatunek: "Średniowieczna kronika",
-        bohaterowie: "Dynastia Piastów (Bolesław Chrobry, Bolesław Śmiały, Bolesław Krzywousty)"
+        bohaterowie: "Bolesław Chrobry, Bolesław Śmiały, Bolesław Krzywousty"
     },
     {
         tytul: "Boska Komedia",
@@ -207,7 +171,7 @@ const books = [
         tytul: "Wesele",
         autor: "Stanisław Wyspiański",
         epoka: "Młoda Polska",
-        gatunek: "Dramat synkretyczny",
+        gatunek: "Dramat symboliczny",
         bohaterowie: "Pan Młody, Pani Młoda, Gospodarz, Gospodyni, Czepiec, Poeta, Jasiek, Dziennikarz, Radczyni, Dziad, Marysia"
     },
     {
@@ -274,99 +238,3 @@ const books = [
         bohaterowie: "Andrews, Małgorzata (Gosha)"
     }
 ];
-
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-function getUniqueSortedOptions(category) {
-    return [...new Set(books.map(book => book[category]))].sort((a, b) => a.localeCompare(b));
-}
-
-const contentDiv = document.getElementById('content');
-const shuffledBooks = shuffle(books).slice(0, 10); // Select only 10 random books
-shuffledBooks.forEach(book => {
-    const section = document.createElement('section');
-    section.innerHTML = `
-        <p><strong>Tytuł:</strong> <button class="hidden-field" onclick="showOptions(this, 'tytul')">Ukryte</button></p>
-        <p><strong>Autor:</strong> <button class="hidden-field" onclick="showOptions(this, 'autor')">Ukryte</button></p>
-        <p><strong>Epoka:</strong> <button class="hidden-field" onclick="showOptions(this, 'epoka')">Ukryte</button></p>
-        <p><strong>Gatunek:</strong> <button class="hidden-field" onclick="showOptions(this, 'gatunek')">Ukryte</button></p>
-        <p><strong>Bohaterowie:</strong> ${book.bohaterowie}</p>
-    `;
-    contentDiv.appendChild(section);
-});
-
-const optionsContainer = document.getElementById('options');
-const popup = document.getElementById('popup');
-const overlay = document.getElementById('overlay');
-const congrats = document.getElementById('congrats');
-const searchInput = document.getElementById('search-input');
-let currentButton;
-let currentCategory;
-
-function showOptions(button, category) {
-    currentButton = button;
-    currentCategory = category;
-    const options = getUniqueSortedOptions(category);
-    optionsContainer.innerHTML = options.map(option => `<div class="option" onclick="selectOption(this)">${option}</div>`).join('');
-    overlay.style.display = 'block';
-    popup.style.display = 'block';
-    searchInput.value = '';
-    filterOptions('');
-}
-
-function selectOption(option) {
-    currentButton.textContent = option.textContent;
-    if (option.textContent === getCorrectAnswer(currentButton, currentCategory)) {
-        currentButton.style.backgroundColor = 'green';
-    } else {
-        currentButton.style.backgroundColor = '#333';
-    }
-    overlay.style.display = 'none';
-    popup.style.display = 'none';
-    searchInput.value = '';
-    filterOptions('');
-    checkCompletion();
-}
-
-function getCorrectAnswer(button, category) {
-    const section = button.closest('section');
-    const correctBook = books.find(book => book.bohaterowie === section.querySelector('p:last-child').textContent.split(': ')[1]);
-    return correctBook ? correctBook[category] : null;
-}
-
-searchInput.addEventListener('input', () => {
-    filterOptions(searchInput.value.toLowerCase());
-});
-
-function filterOptions(filter) {
-    document.querySelectorAll('.option').forEach(option => {
-        option.style.display = option.textContent.toLowerCase().includes(filter) ? 'block' : 'none';
-    });
-}
-
-overlay.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    popup.style.display = 'none';
-    searchInput.value = '';
-    filterOptions('');
-});
-
-function checkCompletion() {
-    const allFilled = [...document.querySelectorAll('.hidden-field')].every(button => button.textContent.trim() !== 'Ukryte');
-    if (allFilled) {
-        congrats.style.display = 'block';
-        setTimeout(() => {
-            congrats.style.display = 'none';
-        }, 3000);
-    }
-}
-
-    </script>
-</body>
-</html>
