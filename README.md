@@ -1,1 +1,1 @@
-# https://olo66789.github.io/english-words/
+# https://olo66789.github.io/polski/
