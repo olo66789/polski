@@ -31,7 +31,7 @@
         <div id="search-container">
             <input type="text" id="search-input" placeholder="Szukaj..." onkeyup="searchContent(event)">
             <button id="menu-button" onclick="window.location.href='index.html'">
-                <img src="svg/menu.svg" alt="Menu" width="26" height="26" />
+                <img src="svg/menu.svg" width="26" height="26" />
             </button>
         </div>
     </header>
@@ -106,7 +106,12 @@
             });
 
             if (event.key === 'Enter') {
-                currentIndex = (currentIndex + 1) % highlightedSections.length; // Cycle through the highlights
+                if (currentIndex === -1 && highlightedSections.length > 1) {
+                    currentIndex = 1; // Set to the second match if exists
+                } else {
+                    currentIndex = (currentIndex + 1) % highlightedSections.length; // Cycle through the highlights
+                }
+                
                 if (highlightedSections.length > 0) {
                     const targetSection = highlightedSections[currentIndex];
                     window.scrollTo({
