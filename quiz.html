@@ -66,8 +66,10 @@
     <script src="js/books.js"></script>
     <script>
         let errorCount = 0;
-        let numberOfBooks = 10;
+        let numberOfBooks = localStorage.getItem('numberOfBooks') ? parseInt(localStorage.getItem('numberOfBooks')) : 10;
         const maxBooks = books.length;
+
+        document.getElementById('number-of-books').value = numberOfBooks;
 
         document.getElementById('max-button').onclick = function() {
             document.getElementById('number-of-books').value = maxBooks;
@@ -82,6 +84,7 @@
                 numberOfBooks = 10;
                 document.getElementById('number-of-books').value = 10;
             }
+            localStorage.setItem('numberOfBooks', numberOfBooks);
             initQuiz();
             document.getElementById('settings').style.display = 'none';
         };
