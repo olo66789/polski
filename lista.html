@@ -31,10 +31,7 @@
         </div>
     </header>
     <div id="content"></div>
-    <button class="scroll-top" onclick="scrollToTop()">
-        <img src="svg/arrow.svg" alt="Do góry">
-    </button>
-    <script src="js/books.js"></script> 
+    <script src="js/books.js"></script>
     <script>
         const contentDiv = document.getElementById('content');
         let currentEpoch = '';
@@ -61,14 +58,25 @@
             contentDiv.appendChild(section);
         });
 
+        function normalizeString(str) {
+            const diacriticsMap = {
+                'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
+                'A': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N', 'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z',
+                'dż': 'dz', 'Dż': 'Dz'
+            };
+            return str.toLowerCase().replace(/[ąęćłńóśźż]/g, (char) => {
+                return diacriticsMap[char] || char;
+            });
+        }
+
         function searchContent() {
-            const input = document.getElementById('search-input').value.toLowerCase();
+            const input = normalizeString(document.getElementById('search-input').value);
             const sections = document.querySelectorAll('#content section');
             let firstMatch = null;
             const headerHeight = document.querySelector('header').offsetHeight + 20;
 
             sections.forEach(section => {
-                const text = section.textContent.toLowerCase();
+                const text = normalizeString(section.textContent);
                 const h2 = section.querySelector('h2');
                 const paragraphs = section.querySelectorAll('p');
                 h2.classList.remove('highlight');
@@ -80,7 +88,7 @@
                     if (!firstMatch) firstMatch = section;
                     h2.classList.add('highlight');
                     paragraphs.forEach(p => {
-                        if (p.textContent.toLowerCase().includes(input)) {
+                        if (normalizeString(p.textContent).includes(input)) {
                             p.classList.add('highlight');
                         }
                     });
@@ -95,12 +103,12 @@
             }
         }
 
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
+        window.onload = function() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.focus();
+            searchInput.value = '';
+            window.scrollTo(0, 0);
+        };
     </script>
 </body>
 </html>
