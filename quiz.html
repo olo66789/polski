@@ -13,9 +13,9 @@
         #header button img { width: 26px; height: 26px }
         #content { padding: 20px; max-width: 800px; margin: auto; }
         section { margin-bottom: 20px; border-bottom: 2px solid #FFC107; padding-bottom: 10px; }
-        section:last-child { border-bottom: none; }
-        .hidden-field { background-color: #333; color: #fff; border: none; padding: 5px; cursor: pointer; width: 100%; text-align: left; border-radius: 5px; }
-        .hidden-field.locked { background-color: green; }
+        section:last-child { border-bottom: none; }.hidden-field { background-color: #333; color: #fff; border: none; padding: 5px; cursor: pointer; width: 100%; text-align: left; border-radius: 5px; }
+        .hidden-field { background-color: #333; color: #fff; border: none; padding: 0; cursor: pointer; width: 100%; height: 26px; text-align: left; border-radius: 5px; display: flex; align-items: center; justify-content: flex-start; padding-left: 5px; }
+        .hidden-field.locked { background-color: green; pointer-events:none; }
         .popup, .settings { display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%); width: 80%; background-color: #1F1F1F; color: #FFC107; padding: 20px; border-radius: 5px; z-index: 1000; overflow-y: auto; max-width: 800px; max-height: 80vh; }
         @media (max-width: 768px) { .popup, .settings { top: 75px; } body.no-scroll { overflow: hidden; } }
         .popup .search-container, .settings .settings-container { margin-bottom: 10px; }
@@ -110,13 +110,12 @@
             shuffledBooks.forEach(book => {
                 const shuffledHeroes = shuffle(book.bohaterowie.split(',')).join(', ');
                 const section = document.createElement('section');
-                section.innerHTML = `
-                    <p><strong>Tytuł:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'tytul')"> </button></p>
-                    <p><strong>Autor:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'autor')"> </button></p>
-                    <p><strong>Epoka:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'epoka')"> </button></p>
-                    <p><strong>Gatunek:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'gatunek')"> </button></p>
-                    <p><strong>Bohaterowie:</strong> ${shuffledHeroes}</p>
-                `;
+                section.innerHTML = 
+                    `<p><strong>Tytuł:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'tytul')"> </button></p>
+                    <p><strong>Autor:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'autor')"> </button></p>
+                    <p><strong>Epoka:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'epoka')"> </button></p>
+                    <p><strong>Gatunek:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'gatunek')"> </button></p>
+                    <p><strong>Bohaterowie:</strong> ${shuffledHeroes}</p>`;
                 contentDiv.appendChild(section);
             });
         }
@@ -140,11 +139,12 @@
             
             if (window.innerWidth <= 768) {
                 document.body.classList.add('no-scroll');
+            } else {
+                searchInput.focus();  // Aktywacja tylko dla urządzeń nie-mobilnych
             }
             
             searchInput.value = '';
             filterOptions('');
-            searchInput.focus();
         }
 
         function selectOption(option) {
