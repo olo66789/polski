@@ -10,8 +10,10 @@
         body { background: #121212; color: #E0E0E0; font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
         header { background: #1F1F1F; padding: 10px 20px; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); }
         header h1 { margin: 0; font-size: 2em; }
-        #search-container { margin: 10px auto; text-align: center; }
-        #search-input { padding: 10px; width: 80%; max-width: 400px; border: none; border-radius: 5px; background: #333; color: #fff; outline: none; }
+        #search-container { margin: 10px auto; position: relative; }
+        #search-input { padding: 10px; width: 100%; max-width: 400px; border: none; border-radius: 5px; background: #333; color: #fff; outline: none; }
+        #menu-button { position: absolute; right: 15px; top: 48%; transform: translateY(-50%); width: 26px; height: 26px; background: none; border: none; cursor: pointer; }
+        @media (max-width: 600px) { #search-input { margin-right: 10px; width: calc(100% - 48px); box-sizing: border-box; max-width: 1000px; } header { text-align: left !important; } #menu-button { right: 5px; } }
         #content { padding: 20px; max-width: 800px; margin: auto; }
         h2 { color: #FFC107; border-bottom: 2px solid #FFC107; padding-bottom: 5px; margin-bottom: 10px; }
         section { margin-bottom: 20px; }
@@ -27,14 +29,20 @@
 <body>
     <header>
         <div id="search-container">
-            <input type="text" id="search-input" placeholder="Szukaj..." onkeyup="searchContent()">
+            <input type="text" id="search-input" placeholder="Szukaj..." onkeyup="searchContent(event)">
+            <button id="menu-button" onclick="window.location.href='index.html'">
+                <img src="svg/menu.svg" alt="Menu" width="26" height="26" />
+            </button>
         </div>
     </header>
     <div id="content"></div>
     <script src="js/books.js"></script>
     <script>
         const contentDiv = document.getElementById('content');
+        const searchInput = document.getElementById('search-input');
         let currentEpoch = '';
+        let highlightedSections = [];
+        let currentIndex = -1;
 
         books.forEach(book => {
             if (book.epoka !== currentEpoch) {
@@ -69,9 +77,10 @@
             });
         }
 
-        function searchContent() {
-            const input = normalizeString(document.getElementById('search-input').value);
+        function searchContent(event) {
+            const input = normalizeString(searchInput.value);
             const sections = document.querySelectorAll('#content section');
+            highlightedSections = [];
             let firstMatch = null;
             const headerHeight = document.querySelector('header').offsetHeight + 20;
 
@@ -86,6 +95,7 @@
 
                 if (text.includes(input)) {
                     if (!firstMatch) firstMatch = section;
+                    highlightedSections.push(section); // Keep track of highlighted sections
                     h2.classList.add('highlight');
                     paragraphs.forEach(p => {
                         if (normalizeString(p.textContent).includes(input)) {
@@ -95,16 +105,26 @@
                 }
             });
 
-            if (firstMatch) {
-                window.scrollTo({
-                    top: firstMatch.offsetTop - headerHeight,
-                    behavior: 'smooth'
-                });
+            if (event.key === 'Enter') {
+                currentIndex = (currentIndex + 1) % highlightedSections.length; // Cycle through the highlights
+                if (highlightedSections.length > 0) {
+                    const targetSection = highlightedSections[currentIndex];
+                    window.scrollTo({
+                        top: targetSection.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            } else {
+                if (firstMatch) {
+                    window.scrollTo({
+                        top: firstMatch.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
             }
         }
 
         window.onload = function() {
-            const searchInput = document.getElementById('search-input');
             searchInput.focus();
             searchInput.value = '';
             window.scrollTo(0, 0);
