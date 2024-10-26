@@ -16,7 +16,7 @@
         .hidden-field { background-color: #333; color: #fff; border: none; padding: 5px; cursor: pointer; width: 100%; text-align: left; border-radius: 5px; }
         .hidden-field.locked { background-color: green; }
         .popup, .settings { display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%); width: 80%; background-color: #1F1F1F; color: #FFC107; padding: 20px; border-radius: 5px; z-index: 1000; overflow-y: auto; max-width: 800px; max-height: 80vh; }
-        @media (max-width: 768px) { .popup, .settings { top: 75px; } .popup .options-container { margin-bottom: 35px; } body.no-scroll { overflow: hidden; } }
+        @media (max-width: 768px) { .popup, .settings { top: 75px; } body.no-scroll { overflow: hidden; } }
         .popup .search-container, .settings .settings-container { margin-bottom: 10px; }
         .popup .search-input, .settings .settings-input { padding: 10px; width: 100%; box-sizing: border-box; border: none; border-radius: 5px; background-color: #333; color: #fff; outline: none; }
         .popup .options-container, .settings .settings-options-container { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -36,8 +36,8 @@
 </head>
 <body>
     <div id="header">
-        <button onclick="refreshPage()"><img src="svg/refresh.svg" alt="Refresh" height="24"></button>
-        <button onclick="goToIndex()"><img src="svg/menu.svg" alt="Menu" height="24"></button>
+        <button onclick="refreshPage()"><img src="svg/refresh.svg"></button>
+        <button onclick="goToIndex()"><img src="svg/menu.svg"></button>
     </div>
     
     <div id="content"></div>
@@ -249,6 +249,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('settings').style.display = 'block';
         });
+
+        searchInput.addEventListener('focus', () => {
+    popup.style.transform = 'translateY(-200px)'; // Dostosuj wartość do swoich potrzeb
+});
+
+searchInput.addEventListener('blur', () => {
+    popup.style.transform = 'translateY(0)';
+});
+
     </script>
 </body>
 </html>
