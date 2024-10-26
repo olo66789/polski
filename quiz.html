@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/8832/8832880.png" type="image/x-icon">
+    <link rel="icon" href="img/icon.png" type="image/x-icon">
     <title>Spis Lektur | Quiz</title>
     <style>
         body { background-color: #121212; color: #E0E0E0; font-family: Arial, sans-serif; margin: 0; padding: 0; line-height: 1.6; }
@@ -22,7 +22,8 @@
         .popup .option, .settings .settings-option { background-color: #333; padding: 10px; border-radius: 5px; cursor: pointer; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 999; }
         .congrats { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FFC107; color: #121212; padding: 10px; border-radius: 5px; z-index: 1000; }
-        #congrats-message p { font-weight: bold; animation: pulse 1.5s infinite; } @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        #congrats-message p { font-weight: bold; text-align: center; }
+        #errors-counter { animation: pulse 1.5s infinite; } @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         .settings-container { display: flex; align-items: center; }
         .settings-container label { display: block; }
         .settings #number-of-books { -moz-appearance: textfield; -webkit-appearance: none; appearance: none; width: calc(100% - 60px); margin-right: 5px; }
@@ -56,10 +57,10 @@
         <button id="start-button" class="settings-option">Start</button>
     </div>    
     <div class="congrats" id="congrats">
-        <div id="congrats-message" style="text-align: center;">
+        <div id="congrats-message">
             <p id="congrats-text"></p>
             <img id="congrats-gif" src="" alt="" style="max-width: 100%; height: auto;">
-            <p>Błędy: <span id="errors-count">0</span></p>
+            <p id="errors-counter">Błędy: <span id="errors-count">0</span></p>
         </div>
     </div>
     <script src="js/books.js"></script>
@@ -218,13 +219,13 @@
 
                 if (errorCount === 0) {
                     congratsText.innerHTML = "skibidi sigma rizz";
-                    congratsGif.src = "https://media1.tenor.com/m/NeYLaiQPbpAAAAAd/%D1%81%D0%B8%D0%B3%D0%BC%D0%B0.gif";
+                    congratsGif.src = "img/sigma.gif";
                 } else if (errorCount <= 10) {
                     congratsText.innerHTML = "prawie wszystko git";
-                    congratsGif.src = "https://media1.tenor.com/m/fErt1YElZ2gAAAAd/shrek-rizz-reverse.gif";
+                    congratsGif.src = "img/shrek.gif";
                 } else {
                     congratsText.innerHTML = "ty poważny jesteś?";
-                    congratsGif.src = "https://media1.tenor.com/m/22jUojnOP8IAAAAC/vsause-michael.gif";
+                    congratsGif.src = "img/vsause.gif";
                 }
 
                 congrats.style.display = 'block';
