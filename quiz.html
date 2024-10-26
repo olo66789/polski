@@ -25,7 +25,7 @@
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 999; }
         .congrats { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FFC107; color: #121212; padding: 10px; border-radius: 5px; z-index: 1000; }
         #congrats-message p { font-weight: bold; text-align: center; }
-        #errors-counter { animation: pulse 1.5s infinite; } @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        #errors-counter { animation: pulse 1.5s infinite; } @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
         .settings-container { display: flex; align-items: center; }
         .settings-container label { display: block; }
         .settings #number-of-books { -moz-appearance: textfield; -webkit-appearance: none; appearance: none; width: calc(100% - 60px); margin-right: 5px; }
@@ -191,11 +191,30 @@
             }
         });
 
-        function filterOptions(filter) {
-            document.querySelectorAll('.option').forEach(option => {
-                option.style.display = option.textContent.toLowerCase().includes(filter.toLowerCase()) ? 'block' : 'none';
-            });
-        }
+        function normalizeString(str) {
+
+    const diacriticsMap = {
+        'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
+        'A': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N', 'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z',
+        'dż': 'dz', 'Dż': 'Dz'
+    };
+
+    return str.toLowerCase().replace(/[ąęćłńóśźż]/g, (char) => {
+        return diacriticsMap[char] || char;
+    });
+}
+
+function filterOptions(filter) {
+    const normalizedFilter = normalizeString(filter);
+    document.querySelectorAll('.option').forEach(option => {
+        const normalizedOption = normalizeString(option.textContent);
+        option.style.display = normalizedOption.includes(normalizedFilter) ? 'block' : 'none';
+    });
+}
+
+searchInput.addEventListener('input', () => {
+    filterOptions(searchInput.value);
+});
 
         overlay.addEventListener('click', () => {
             overlay.style.display = 'none';
