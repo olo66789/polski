@@ -108,7 +108,7 @@
             contentDiv.innerHTML = '';
             const shuffledBooks = shuffle(books).slice(0, numberOfBooks);
             shuffledBooks.forEach(book => {
-                const shuffledHeroes = shuffle(book.bohaterowie.split(',')).join(', ');
+                const shuffledHeroes = shuffle(book.bohaterowie.split(',')).slice(0, 12).join(', ');
                 const section = document.createElement('section');
                 section.innerHTML = 
                     `<p><strong>Tytuł:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'tytul')"> </button></p>
