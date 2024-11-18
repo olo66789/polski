@@ -4,35 +4,35 @@ const books = [
         autor: "Mateusz, Jan",
         epoka: "Starożytność",
         gatunek: "Utwór synkretyczny",
-        bohaterowie: "Adam, Ewa, Abraham, Izaak, Jakub, Józef, Mojżesz, Aaron, Dawid, Salomon, Noe, Hagar, Izmael, Ezaw, Goliat, Batszeba, Dalila, Samson, Jozue, Eliasz, Elizeusz, Hiob, Estera, Daniel, Jonasza"
+        bohaterowie: "Adam, Ewa, Hiob"
     },
     {
         tytul: "Mitologia",
         autor: "Jan Parandowski",
         epoka: "Starożytność",
         gatunek: "Mit",
-        bohaterowie: "Zeus, Atena, Hefajstos, Dionizos, Apollo, Eros, Hera, Artemida, Hermes, Hades, Demeter, Persefona, Posejdon, Afrodyta, Ares, Hestia, Amfitryta, Erynie, Hekate, Helios, Iris, Mojry, Nike, Pan, Selene, Psyche, Tanatos, Temida, Herakles"
+        bohaterowie: "Ares, Hera, Atena, Apollo, Hermes"
     },
     {
         tytul: "Iliada",
         autor: "Homer",
         epoka: "Starożytność",
         gatunek: "Epos",
-        bohaterowie: "Achilles, Agamemnon, Menelaos, Diomedes, Odyseusz, Nestor, Patroklos, Ajas Wielki, Ajas Mały, Hektor, Priam, Parys, Sarpedon, Polydamas, Deifob, Hekabe, Bryzeida, Helena, Atena, Hera, Posejdon, Hefajstos, Zeus, Apollo, Afrodyta, Ares"
+        bohaterowie: "Achilles, Parys, Agamemnon, Zeus"
     },
     {
         tytul: "Antygona",
         autor: "Sofokles",
         epoka: "Starożytność",
         gatunek: "Tragedia antyczna",
-        bohaterowie: "Antygona, Ismena, Polinejkes, Eteokles, Kreon, Jokasta, Edyp, Hajmon, Eurydyka"
+        bohaterowie: "Antygona, Kreon, Hajmon, Ismena, Tyrezjasz"
     },
     {
         tytul: "Lament Świętokrzyski",
         autor: "-",
         epoka: "Średniowiecze",
         gatunek: "Lament",
-        bohaterowie: "Maryja, Jezus"
+        bohaterowie: "Matka Boska"
     },
     {
         tytul: "Legenda o Św. Aleksym",
@@ -53,35 +53,35 @@ const books = [
         autor: "-",
         epoka: "Średniowiecze",
         gatunek: "Legenda hagiograficzna",
-        bohaterowie: "Św. Franciszek z Asyżu, Brat Bernard z Kwintawalle, Brat Leon, Brat Sylwester, Brat Eliasz, Brat Maciej z Marignano, Brat Rufin, Brat Idzi, Brat Filip Długi, Św. Klara z Asyżu, Św. Agnieszka, Anioł, Chrystus, Sędzia z Bolonii"
+        bohaterowie: "Franciszek, współbracia, Święci"
     },
     {
         tytul: "Pieśń o Rolandzie",
         autor: "-",
         epoka: "Średniowiecze",
         gatunek: "Epos rycerski",
-        bohaterowie: "Roland, Karol Wielki, Oliwier, Ganelon, Turpin, Marsyl"
+        bohaterowie: "Roland, Karol Wielki, Oliwier, Ganelon, Marsyl"
     },
     {
         tytul: "Kronika Polska",
         autor: "Gall Anonim",
         epoka: "Średniowiecze",
         gatunek: "Średniowieczna kronika",
-        bohaterowie: "Mieszko I, Bolesław Chrobry, Mieszko II, Kazimierz Odnowiciel, Bolesław Śmiały, Władysław Herman, Bolesław III Krzywousty"
+        bohaterowie: "Bolesław Chrobry, Bolesław Śmiały, Bolesław Krzywousty"
     },
     {
         tytul: "Boska Komedia",
         autor: "Dante Alighieri",
         epoka: "Średniowiecze",
         gatunek: "Poemat epicki",
-        bohaterowie: "Dante, Wergiliusz, Beatrycze, św. Bernard z Clairvaux, Francesca da Rimini, Brunetto Latini, Katon Młodszy, Publiusz Stacjusz, Foreze Donati, Trajan, Hiskia"
+        bohaterowie: "Wergiliusz, Beatrycze"
     },
     {
         tytul: "Odprawa posłów greckich",
         autor: "Jan Kochanowski",
         epoka: "Renesans",
         gatunek: "Dramat humanistyczny",
-        bohaterowie: "Aleksander, Antenor, Priam, Kasandra, Ikateon, Helena, Ulisses, Menelaos"
+        bohaterowie: "Antenor, Aleksander"
     },
     {
         tytul: "Kazania sejmowe",
@@ -102,167 +102,139 @@ const books = [
         autor: "William Szekspir",
         epoka: "Barok",
         gatunek: "Dramat szekspirowski",
-        bohaterowie: "Makbet, Lady Makbet, Dunkan, Banko, Makduf, Malkolm, Donalbein, Fleance, Siward, Młody Siward, Lady Makduf, Hekate"
+        bohaterowie: "Makbet, Lady Makbet, Makduf, Lady Makduf, Dunkan, Malkolm, Donalbein, Banko, Fleance"
     },
     {
         tytul: "Skąpiec",
         autor: "Molier",
         epoka: "Barok",
         gatunek: "Komedia obyczajowa",
-        bohaterowie: "Harpagon, Kleant, Eliza, Marianna, Walery, Anzelm, Frozyna, Simon, Jakub, Strzałka, Ździebełko, Szczygiełek, Pani Claude"
+        bohaterowie: "Harpagon, Kleant, Eliza, Anzelm, Walery, Marianna, Strzałka"
     },
     {
         tytul: "Konrad Wallenrod",
         autor: "Adam Mickiewicz",
         epoka: "Romantyzm",
         gatunek: "Powieść poetycka",
-        bohaterowie: "Konrad Wallenrod, Walter Alf, Wajdelota, Aldona, Halban, Kiejstut, Winrych von Kniprode, Almanzor, Książę Witold"
+        bohaterowie: "Konrad Wallenrod, Aldona, Halban, Winrich von Kniprode, Książę Witold"
     },
     {
         tytul: "Dziady cz. III",
         autor: "Adam Mickiewicz",
         epoka: "Romantyzm",
         gatunek: "Dramat romantyczny",
-        bohaterowie: "Konrad, Ksiądz Piotr, Ewa, Żegota, Tomasz, Jan Sobolewski, Cichowski, Jan Rollinson, Pani Rollisonowa, Kapral, Senator Nowosilcow, Bajkow, Pelikan, Guślarz"
+        bohaterowie: "Konrad, Ksiądz Piotr, Żegota, Ewa, Guślarz, Pani Rollison, Duch Doktora, Bajkow, Senator, Patrioci"
     },
     {
         tytul: "Pan Tadeusz",
         autor: "Adam Mickiewicz",
         epoka: "Romantyzm",
         gatunek: "Epopeja narodowa",
-        bohaterowie: "Jacek Soplica, Tadeusz Soplica, Sędzia, Hrabia, Telimena, Zosia, Gerwazy Rębajło, Protazy Brzechalski, Major Płut, Kapitan Ryków, Stolnik Horeszko, Wojski Hreczecha, Rejent Bolesta, Asesor, Jankiel, Maciek nad Maćkami"
+        bohaterowie: "Tadeusz, Zosia, Gerwazy, Jacek"
     },
     {
         tytul: "Kordian",
         autor: "Juliusz Słowacki",
         epoka: "Romantyzm",
         gatunek: "Dramat romantyczny",
-        bohaterowie: "Kordian, Grzegorz, Laura, Wioletta, Papież, Prezes, Ksiądz, Car Mikołaj I, Wielki Książę Konstanty, Diabeł"
-    },
-    {
-        tytul: "Balladyna",
-        autor: "Juliusz Słowacki",
-        epoka: "Romantyzm",
-        gatunek: "Dramat romantyczny",
-        bohaterowie: "Balladyna, Alina, Kirkor, Pustelnik, Grabiec, Filon, Kostryn, Wdowa, Gralon, Goplana, Chochlik, Skierka"
+        bohaterowie: "Kordian, Laura, Wioletta, Prezes, Papież"
     },
     {
         tytul: "Lalka",
         autor: "Bolesław Prus",
         epoka: "Pozytywizm",
         gatunek: "Powieść",
-        bohaterowie: "Izabela Łęcka, Tomasz Łęcki, Prezesowa Zasławska, Baronowa Krzeszowska, Baron Krzeszowski, Kazimierz Starski, Kazimiera Wąsowska, Baron Dalski, Ewelina Janocka, Julian Ochocki, Książę, Molinari, Rossi, Florentyna, Maruszewicz, Hrabina Joanna Karolowa, Felicja (Fela) Janocka, Hrabia Liciński, Stanisław Wokulski, Helena Stawska, Ludwik Stawski, Helunia Stawska, Wirski, Piotr Wokulski, Jadwiga Misiewicz, Ignacy Rzecki, Lisiecki, Mraczewski, Doktor Michał Szuman, Henryk Szlangbaum, August Katz, Jan Mincel (młodszy), Jan Mincel (starszy), Franz Mincel, Małgorzata Mincel, Stary Szlangabum, Kasia Hopfer, Klejn, Suzin, Profesor Geist, Studenci (Maleski, Patkiewicz i trzeci student), Inkasent Oberman, Szprot, Węgrowicz, Maria (Marianna), Wysocki, Węgiełek"
+        bohaterowie: "Stanisław Wokulski, Ignacy Rzecki, Izabela Łęcka, Helena Stawska, Minclowie, Henryk Szlangbaum"
     },
     {
         tytul: "Gloria Victis",
         autor: "Eliza Orzeszkowa",
         epoka: "Pozytywizm",
         gatunek: "Nowela",
-        bohaterowie: "Marian Tarłowski (Maryś), Jagmin, Romuald Traugutt, Aniela Tarłowska"
+        bohaterowie: "Maryś Tarłowski, Aniela Tarłowska, Jagmin, Romuald Traugutt"
     },
     {
         tytul: "Potop",
         autor: "Henryk Sienkiewicz",
         epoka: "Pozytywizm",
         gatunek: "Powieść historyczna",
-        bohaterowie: "Andrzej Kmicic, Aleksandra Billewiczówna, Anusia Borzobohata-Krasieńska, Bogusław Radziwiłł, Jan II Kazimierz Waza, Jan Onufry Zagłoba, Jan Skrzetuski, Jan Sobiepan Zamoyski, Książę Janusz Radziwiłł, Jerzy Michał Wołodyjowski, Bliźniacy Kosma z Damianem, Paweł Jan Sapieha, Roch Kowalski, Stefan Czarniecki, Soroka, Tomasz Billewicz, Wincenty Aleksander Gosiewski, Ojciec Augustyn Kordecki"
+        bohaterowie: "Andrzej Kmicic, Oleńka Billewiczówna, Soroka, Michał Wołodyjowski, Bogusław Radziwiłł, Andrzej Kuklinowski, Jan Zagłoba"
     },
     {
         tytul: "Zbrodnia i Kara",
         autor: "Fiodor Dostojewski",
         epoka: "Pozytywizm",
         gatunek: "Powieść",
-        bohaterowie: "Rodion Raskolnikow, Sonia Marmieładowa, Razumichin, Dunia, Pulcheria Raskolnikowa, Piotr Łużyn, Arkadiusz Swidrygajłow, Marfa Pietrowna, Marmieładow, Katarzyna Iwanowna, Andrzej Siemionowicz Lebiezatnikow, Alona Iwanowna, Lizawieta Iwanowna, Porfiry Pietrowicz, Mikołaj Dementiew, Zosimow, Zamiatow"
+        bohaterowie: "Rodion Raskolnikow, Sonia Marmieładowa, Siemion Marmieładow, Porfiry Pietrowicz, Arkadiusz Swidrygajłow, Piotr Łużyn"
     },
     {
         tytul: "Wesele",
         autor: "Stanisław Wyspiański",
         epoka: "Młoda Polska",
         gatunek: "Dramat symboliczny",
-        bohaterowie: "Pan Młody, Poeta, Dziennikarz, Nos, Radczyni, Ksiądz, Maryna, Zosia, Haneczka, Panna Młoda, Czepiec, Gospodarz, Gospodyni, Ojciec, Żyd Mosiek, Rachela, Jasiek, Klimina, Dziad, Kasper, Kasia, Marysia, Wojtek, Isia, Staszek, Kuba, Czepcowa, Muzykant, Chochoł, Widmo, Stańczyk, Rycerz, Hetman, Upiór, Wernyhora"
+        bohaterowie: "Pan Młody, Pani Młoda, Gospodarz, Gospodyni, Czepiec, Poeta, Jasiek, Dziennikarz, Radczyni, Dziad, Marysia"
     },
     {
         tytul: "Chłopi",
         autor: "Władysław Reymont",
         epoka: "Młoda Polska",
         gatunek: "Powieść",
-        bohaterowie: "Maciej Boryna, Antek Boryna, Jagna Paczesiówna, Hanka Borynowa, Jagustynka, Agata, Roch, Mateusz Gołąb, Nastka, Jacek, Kuba Socha, Witek, Pietrek, Jambroży, Dominikowa, Szymek, Kowal, Józka, Tereska, Bylica, Weronika, Jasiek"
+        bohaterowie: "Jagna, Maciej, Antoni"
     },
 	{
         tytul: "Przedwiośnie",
         autor: "Stefan Żeromski",
         epoka: "XX-lecie międzywojenne",
         gatunek: "Powieść nowoczesna",
-        bohaterowie: "Cezary Grzegorz Baryka, Jadwiga Baryka z Dąbrowskich, Seweryn Baryka, Kalikst Grzegorz Baryka, Szymon Gajowiec, Hipolit Wielosławski, Karolina Szarłatowiczówna, Wanda Okszyńska, Laura Kościeniecka, Władysław Barwicki, Storzan, Ksiądz Anastazy, Maciejunio, Wojciunio, Jędrek, Państwo Turzyccy, Gruboszewski, Księżna Szczerbatow-Mamajew,Czarny , Antoni Lulek, Buławnik"
-    },
-	{
-        tytul: "Ferdydurke",
-        autor: "Witold Gombrowicz",
-        epoka: "XX-lecie międzywojenne",
-        gatunek: "Powieść awangardowa",
-        bohaterowie: "Józio Kowalski, Miętus, Syfon, Myzdral, Hopek, Gałkiewicz, Kopyrda, Pimko, Dyrektor Piórkowski, Bladaczka, Nauczyciel łaciny, Wiktor Młodziak, Joanna Młodziakowa, Zuta Młodziakówna, Ciotka Hurlecka, Wuj Konstanty, Zygmunt, Zosia, Franciszek, Waluś, Marcyśka, Filidor, Pani Filidor, Anty-Filidor, Flora Gente, Filibert"
+        bohaterowie: "Cezary Baryka, Seweryn Baryka, Jadwiga Barykowa, Szymon Gajowiec, Hipolit Wielosławski"
     },
     {
         tytul: "Proszę państwa do gazu",
         autor: "Tadeusz Borowski",
         epoka: "Literatura wojny i okupacji",
         gatunek: "Opowiadanie",
-        bohaterowie: "Tadek, Henri, Cosway, Andrej"
-    },
-    {
-        tytul: "Ludzie, którzy szli",
-        autor: "Tadeusz Borowski",
-        epoka: "Literatura wojny i okupacji",
-        gatunek: "Opowiadanie",
-        bohaterowie: "Narrator, Mirka, Ruda, Żyd"
-    },
-	{
-        tytul: "Inny świat",
-        autor: "Gustaw Herling-Grudziński",
-        epoka: "Literatura wojny i okupacji",
-        gatunek: "Proza dokumentalna",
-        bohaterowie: "Gustaw Herling-Grudziński, Dimka, Gorcew, Jegorow, Jewgienija Fiodorowna, Kowal, Marusia, Michaił Aleksiejewicz Kostylew, Natalia Lwowna, Pamfiłow, Ponomarenko, Profesor Borys Lazarowicz, Rusto Karinen, Sadowski, Zabójca Stalina, Generalska doczka, Koźma, Pułkownik Szkłowski"
+        bohaterowie: "Tadek, Henri, Andrej, Cosway"
     },
     {
         tytul: "Zdążyć przed Panem Bogiem",
         autor: "Hanna Krall",
         epoka: "Literatura wojny i okupacji",
         gatunek: "Reportaż",
-        bohaterowie: "Marek Edelman, Mordechaj Anielewicz, Adam Czerniaków, Arie Wilner, Michał Klepfisz, Icchak Cukierman, Teodozja Goliborska, Abraham Blum, Luba Blum, Zalman Frydrych, Pola Lifszyc, Hennoch Rus, Frania, Teosia Tenenbaumanówna, Henryk Grabowski, Henryk Woliński, Profesor Jan Moll, Elżbieta Chętkowska, Pani Bubnerowa, Pan Rudny, Inżynier Wilczkowski, Pan Rzewuski, Jürgen Stroop"
+        bohaterowie: "Marek Edelman, Jan Moll, Mordechaj Anielewicz, Pola Lifszyc"
     },
 	{
-        tytul: "Dżuma",
-        autor: "Albert Camus",
-        epoka: "Współczesność",
-        gatunek: "Powieść filozoficzna",
-        bohaterowie: "Doktor Bernard Rieux, Jean Tarrou, Raymond Rambert, Joseph Grand, Cottard, Ojciec Paneloux, Sędzia Othon, Filip, Michel, Doktor Castel, Doktor Richard, Żona doktora Rieux, Matka doktora Rieux, Gonzales, Marcel, Louis, Raoul"
+        tytul: "Inny świat",
+        autor: "Gustaw Herling-Grudziński",
+        epoka: "Literatura wojny i okupacji",
+        gatunek: "Proza dokumentalna",
+        bohaterowie: "Narrator, więźniowie łagrów"
     },
 	{
         tytul: "Rok 1984",
         autor: "George Orwell",
         epoka: "Współczesność",
         gatunek: "Powieść dystopijna",
-        bohaterowie: "Winston Smith, Julia, O'Brien, Syme, Parsons, Wielki Brat, Goldstein, Charrington, Partia, Prole"
+        bohaterowie: "Winston Smith, Julia, O’Brien, Wielki brat"
     },
 	{
         tytul: "Tango",
         autor: "Sławomir Mrożek",
         epoka: "Współczesność",
         gatunek: "Dramat groteskowy",
-        bohaterowie: "Artur, Stomil, Eleonora, Edek, Eugenia, Ala (Alicja), Eugeniusz"
+        bohaterowie: "Artur, Eleonora, Stomil, Eugeniusz, Eugenia, Ala, Edek"
     },
 	{
-        tytul: "Górą Edek",
-        autor: "Marek Nowakowski",
+        tytul: "Dżuma",
+        autor: "Albert Camus",
         epoka: "Współczesność",
-        gatunek: "Opowiadanie",
-        bohaterowie: "Narrator, Kierowca malucha, Kierowca forda (Edek)"
+        gatunek: "Powieść filozoficzna",
+        bohaterowie: "Bernard Rieux, Jean Tarrou, Raymond Rambert o.Paneloux"
     },
 	{
         tytul: "Profesor Andrews w Warszawie",
         autor: "Olga Tokarczuk",
         epoka: "Współczesność",
         gatunek: "Opowiadanie",
-        bohaterowie: "Profesor Andrews, Małgorzata (Gosha)"
+        bohaterowie: "Andrews, Małgorzata (Gosha)"
     }
 ];

@@ -15,9 +15,7 @@
         section { margin-bottom: 20px; border-bottom: 2px solid #FFC107; padding-bottom: 10px; }
         section:last-child { border-bottom: none; }.hidden-field { background-color: #333; color: #fff; border: none; padding: 5px; cursor: pointer; width: 100%; text-align: left; border-radius: 5px; }
         .hidden-field { background-color: #333; color: #fff; border: none; padding: 0; cursor: pointer; width: 100%; height: 26px; text-align: left; border-radius: 5px; display: flex; align-items: center; justify-content: flex-start; padding-left: 5px; }
-        .hidden-field.correct { background-color: green; pointer-events:none; }
-        .hidden-field.incorrect { background-color: #330a0a; }
-        .hidden-field.locked { background-color: #33330a; pointer-events:none; }
+        .hidden-field.locked { background-color: green; pointer-events:none; }
         .popup, .settings { display: none; position: fixed; top: 85px; left: 50%; transform: translateX(-50%); width: 80%; background-color: #1F1F1F; color: #FFC107; padding: 20px; border-radius: 5px; z-index: 1000; overflow-y: auto; max-width: 800px; max-height: 80vh; }
         @media (max-width: 768px) { .popup, .settings { top: 75px; } body.no-scroll { overflow: hidden; } }
         .popup .search-container, .settings .settings-container { margin-bottom: 10px; }
@@ -68,142 +66,133 @@
     </div>
     <script src="js/books.js"></script>
     <script>
-let errorCount = 0;
-let numberOfBooks = localStorage.getItem('numberOfBooks') ? parseInt(localStorage.getItem('numberOfBooks')) : 10;
-const maxBooks = books.length;
+        let errorCount = 0;
+        let numberOfBooks = localStorage.getItem('numberOfBooks') ? parseInt(localStorage.getItem('numberOfBooks')) : 10;
+        const maxBooks = books.length;
 
-document.getElementById('number-of-books').value = numberOfBooks;
+        document.getElementById('number-of-books').value = numberOfBooks;
 
-document.getElementById('max-button').onclick = function() {
-    document.getElementById('number-of-books').value = maxBooks;
-};
+        document.getElementById('max-button').onclick = function() {
+            document.getElementById('number-of-books').value = maxBooks;
+        };
 
-document.getElementById('start-button').onclick = function() {
-    numberOfBooks = parseInt(document.getElementById('number-of-books').value);
-    if (numberOfBooks > maxBooks) {
-        numberOfBooks = maxBooks;
-        document.getElementById('number-of-books').value = maxBooks;
-    } else if (numberOfBooks < 1) {
-        numberOfBooks = 10;
-        document.getElementById('number-of-books').value = 10;
-    }
-    localStorage.setItem('numberOfBooks', numberOfBooks);
-    initQuiz();
-    document.getElementById('settings').style.display = 'none';
-};
+        document.getElementById('start-button').onclick = function() {
+            numberOfBooks = parseInt(document.getElementById('number-of-books').value);
+            if (numberOfBooks > maxBooks) {
+                numberOfBooks = maxBooks;
+                document.getElementById('number-of-books').value = maxBooks;
+            } else if (numberOfBooks < 1) {
+                numberOfBooks = 10;
+                document.getElementById('number-of-books').value = 10;
+            }
+            localStorage.setItem('numberOfBooks', numberOfBooks);
+            initQuiz();
+            document.getElementById('settings').style.display = 'none';
+        };
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1)); 
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-function getUniqueSortedOptions(category) {
-    return [...new Set(books.map(book => book[category]))].sort((a, b) => a.localeCompare(b));
-}
-
-function initQuiz() {
-    errorCount = 0;
-    const contentDiv = document.getElementById('content');
-    contentDiv.innerHTML = '';
-    const shuffledBooks = shuffle(books).slice(0, numberOfBooks);
-    shuffledBooks.forEach(book => {
-        const shuffledHeroes = shuffle(book.bohaterowie.split(',')).slice(0, 12).join(', ');
-        const section = document.createElement('section');
-        section.innerHTML = 
-            `<p><strong>Tytuł:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'tytul')" data-error-count="0"></button></p>
-            <p><strong>Autor:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'autor')" data-error-count="0"></button></p>
-            <p><strong>Epoka:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'epoka')" data-error-count="0"></button></p>
-            <p><strong>Gatunek:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'gatunek')" data-error-count="0"></button></p>
-            <p><strong>Bohaterowie:</strong> ${shuffledHeroes}</p>`;
-        contentDiv.appendChild(section);
-    });
-}
-
-const optionsContainer = document.getElementById('options');
-const popup = document.getElementById('popup');
-const overlay = document.getElementById('overlay');
-const congrats = document.getElementById('congrats');
-const searchInput = document.getElementById('search-input');
-let currentButton;
-let currentCategory;
-
-function handleButtonClick(button, category) {
-    if (button.classList.contains('correct')) return;
-    currentButton = button;
-    currentCategory = category;
-    const options = getUniqueSortedOptions(category);
-    optionsContainer.innerHTML = options.map(option => `<div class="option" onclick="selectOption(this)">${option}</div>`).join('');
-    overlay.style.display = 'block';
-    popup.style.display = 'block';
-    
-    if (window.innerWidth <= 768) {
-        document.body.classList.add('no-scroll');
-    } else {
-        searchInput.focus();
-    }
-    
-    searchInput.value = '';
-    filterOptions('');
-}
-
-function selectOption(option) {
-    currentButton.textContent = option.textContent;
-    const correctAnswer = getCorrectAnswer(currentButton, currentCategory);
-    
-    if (option.textContent === correctAnswer) {
-        currentButton.classList.remove('incorrect');
-        currentButton.classList.add('correct');
-    } else {
-        errorCount++;
-        let individualErrorCount = parseInt(currentButton.getAttribute('data-error-count'));
-        individualErrorCount++;
-        currentButton.setAttribute('data-error-count', individualErrorCount);
-        
-        if (individualErrorCount > 4) {
-            currentButton.classList.remove('incorrect');
-            currentButton.classList.add('locked');
-            currentButton.textContent = correctAnswer;
-        } else {
-            currentButton.classList.add('incorrect');
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1)); 
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
-    }
-    
-    overlay.style.display = 'none';
-    popup.style.display = 'none';
 
-    if (window.innerWidth <= 768) {
-        document.body.classList.remove('no-scroll');
-    }
-
-    searchInput.value = '';
-    filterOptions('');
-    checkCompletion();
-}
-
-function getCorrectAnswer(button, category) {
-    const section = button.closest('section');
-    const heroesText = section.querySelector('p:last-child').textContent.split(': ')[1];
-    const correctBook = books.find(book => book.bohaterowie.split(', ').some(hero => heroesText.includes(hero)));
-    return correctBook ? correctBook[category] : null;
-}
-
-searchInput.addEventListener('input', () => {
-    filterOptions(searchInput.value);
-});
-
-searchInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        const visibleOptions = Array.from(document.querySelectorAll('.option')).filter(option => option.style.display !== 'none');
-        if (visibleOptions.length > 0) {
-            selectOption(visibleOptions[0]);
+        function getUniqueSortedOptions(category) {
+            return [...new Set(books.map(book => book[category]))].sort((a, b) => a.localeCompare(b));
         }
-    }
-});
 
-function normalizeString(str) {
+        function initQuiz() {
+            errorCount = 0;
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = '';
+            const shuffledBooks = shuffle(books).slice(0, numberOfBooks);
+            shuffledBooks.forEach(book => {
+                const shuffledHeroes = shuffle(book.bohaterowie.split(',')).join(', ');
+                const section = document.createElement('section');
+                section.innerHTML = 
+                    `<p><strong>Tytuł:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'tytul')"> </button></p>
+                    <p><strong>Autor:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'autor')"> </button></p>
+                    <p><strong>Epoka:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'epoka')"> </button></p>
+                    <p><strong>Gatunek:</strong> <button class="hidden-field" onclick="handleButtonClick(this, 'gatunek')"> </button></p>
+                    <p><strong>Bohaterowie:</strong> ${shuffledHeroes}</p>`;
+                contentDiv.appendChild(section);
+            });
+        }
+
+        const optionsContainer = document.getElementById('options');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+        const congrats = document.getElementById('congrats');
+        const searchInput = document.getElementById('search-input');
+        let currentButton;
+        let currentCategory;
+
+        function handleButtonClick(button, category) {
+            if (button.classList.contains('locked')) return;
+            currentButton = button;
+            currentCategory = category;
+            const options = getUniqueSortedOptions(category);
+            optionsContainer.innerHTML = options.map(option => `<div class="option" onclick="selectOption(this)">${option}</div>`).join('');
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+            
+            if (window.innerWidth <= 768) {
+                document.body.classList.add('no-scroll');
+            } else {
+                searchInput.focus();
+            }
+            
+            searchInput.value = '';
+            filterOptions('');
+        }
+
+        function selectOption(option) {
+            currentButton.textContent = option.textContent;
+            const correctAnswer = getCorrectAnswer(currentButton, currentCategory);
+            
+            if (option.textContent === correctAnswer) {
+                currentButton.classList.add('locked');
+                option.style.backgroundColor = 'green';
+            } else {
+                errorCount++;
+                option.style.backgroundColor = 'red';
+            }
+            
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
+
+            if (window.innerWidth <= 768) {
+                document.body.classList.remove('no-scroll');
+            }
+
+            searchInput.value = '';
+            filterOptions('');
+            checkCompletion();
+        }
+
+        function getCorrectAnswer(button, category) {
+            const section = button.closest('section');
+            const heroesText = section.querySelector('p:last-child').textContent.split(': ')[1];
+            const correctBook = books.find(book => book.bohaterowie.split(', ').some(hero => heroesText.includes(hero)));
+            return correctBook ? correctBook[category] : null;
+        }
+
+        searchInput.addEventListener('input', () => {
+            filterOptions(searchInput.value);
+        });
+
+        searchInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                const visibleOptions = Array.from(document.querySelectorAll('.option')).filter(option => option.style.display !== 'none');
+                if (visibleOptions.length > 0) {
+                    selectOption(visibleOptions[0]);
+                }
+            }
+        });
+
+        function normalizeString(str) {
+
     const diacriticsMap = {
         'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 'ó': 'o', 'ś': 's', 'ź': 'z', 'ż': 'z',
         'A': 'A', 'Ć': 'C', 'Ę': 'E', 'Ł': 'L', 'Ń': 'N', 'Ó': 'O', 'Ś': 'S', 'Ź': 'Z', 'Ż': 'Z',
@@ -227,59 +216,59 @@ searchInput.addEventListener('input', () => {
     filterOptions(searchInput.value);
 });
 
-overlay.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    popup.style.display = 'none';
+        overlay.addEventListener('click', () => {
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
 
-    document.querySelectorAll('.option').forEach(option => {
-        option.style.backgroundColor = '';
-    });
+            document.querySelectorAll('.option').forEach(option => {
+                option.style.backgroundColor = '';
+            });
 
-    if (window.innerWidth <= 768) {
-        document.body.classList.remove('no-scroll');
-    }
+            if (window.innerWidth <= 768) {
+                document.body.classList.remove('no-scroll');
+            }
 
-    searchInput.value = '';
-    filterOptions('');
-});
+            searchInput.value = '';
+            filterOptions('');
+        });
 
-function checkCompletion() {
-    const allCorrect = [...document.querySelectorAll('.hidden-field')].every(button => button.classList.contains('correct') || button.classList.contains('locked'));
-    if (allCorrect) {
-        document.getElementById('errors-count').textContent = errorCount;
-        
-        const congratsText = document.getElementById('congrats-text');
-        const congratsGif = document.getElementById('congrats-gif');
+        function checkCompletion() {
+            const allCorrect = [...document.querySelectorAll('.hidden-field')].every(button => button.classList.contains('locked'));
+            if (allCorrect) {
+                document.getElementById('errors-count').textContent = errorCount;
+                
+                const congratsText = document.getElementById('congrats-text');
+                const congratsGif = document.getElementById('congrats-gif');
 
-        if (errorCount === 0) {
-            congratsText.innerHTML = "skibidi sigma rizz";
-            congratsGif.src = "img/sigma.gif";
-        } else if (errorCount <= 10) {
-            congratsText.innerHTML = "prawie wszystko git";
-            congratsGif.src = "img/shrek.gif";
-        } else {
-            congratsText.innerHTML = "ty poważny jesteś?";
-            congratsGif.src = "img/vsause.gif";
+                if (errorCount === 0) {
+                    congratsText.innerHTML = "skibidi sigma rizz";
+                    congratsGif.src = "img/sigma.gif";
+                } else if (errorCount <= 10) {
+                    congratsText.innerHTML = "prawie wszystko git";
+                    congratsGif.src = "img/shrek.gif";
+                } else {
+                    congratsText.innerHTML = "ty poważny jesteś?";
+                    congratsGif.src = "img/vsause.gif";
+                }
+
+                congrats.style.display = 'block';
+                setTimeout(() => {
+                    congrats.style.display = 'none';
+                }, 15000);
+            }
         }
 
-        congrats.style.display = 'block';
-        setTimeout(() => {
-            congrats.style.display = 'none';
-        }, 15000);
-    }
-}
+        function refreshPage() {
+            window.location.reload();
+        }
 
-function refreshPage() {
-    window.location.reload();
-}
+        function goToIndex() {
+            window.location.href = 'index.html';
+        }
 
-function goToIndex() {
-    window.location.href = 'index.html';
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('settings').style.display = 'block';
-});
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('settings').style.display = 'block';
+        });
     </script>
 </body>
 </html>
